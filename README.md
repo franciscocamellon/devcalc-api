@@ -8,7 +8,7 @@ O projeto foi desenvolvido como parte de um estudo prático sobre automação de
 
 ## 🛠️ Tecnologias Utilizadas
 
-- Java 22 - (Amazon Corretto 22)
+- Java 22
 - Spring Boot
 - JUnit 5
 - Swagger/OpenAPI (via Springdoc)
