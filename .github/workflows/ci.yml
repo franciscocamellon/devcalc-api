@@ -26,8 +26,8 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v3
         with:
-          distribution: "temurin"
-          java-version: "17"
+          distribution: "corretto"
+          java-version: "22"
 
       - name: Build com Maven
         run: mvn clean install
