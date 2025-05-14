@@ -1,0 +1,50 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    paths:
+      - "src/**"
+
+jobs:
+  checkout:
+    name: Checkout do código
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v4
+
+  build:
+    name: Build do projeto
+    runs-on: ubuntu-latest
+    needs: checkout
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: "temurin"
+          java-version: "17"
+
+      - name: Build com Maven
+        run: mvn clean install
+
+  test:
+    name: Executar testes
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: "temurin"
+          java-version: "17"
+
+      - name: Executar testes
+        run: mvn test
