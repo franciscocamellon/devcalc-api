@@ -119,12 +119,3 @@ Ao abrir um **pull request** com alterações em arquivos dentro da pasta `src/`
 2. Selecione o workflow `CI Pipeline`.
 3. Clique em **Run workflow**, selecione a branch e execute.
 
----
-
-## 📸 Evidências (prints)
-
-Inclua aqui:
-
-- Print do pipeline rodando automaticamente por `pull_request`
-- Print da execução manual via botão `Run workflow`
-- Print do grafo de dependência entre os jobs
