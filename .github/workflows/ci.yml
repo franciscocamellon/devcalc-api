@@ -7,6 +7,17 @@ on:
     paths:
       - "src/**"
   workflow_dispatch:
+    inputs:
+      run_tests:
+        description: "Executar testes automatizados?"
+        required: false
+        default: true
+        type: boolean
+      run_lint:
+        description: "Executar verificação de estilo (Checkstyle)?"
+        required: false
+        default: true
+        type: boolean
 
 jobs:
   checkout:
@@ -38,6 +49,8 @@ jobs:
     needs: build
     with:
       java_version: "22"
+      run_tests: ${{ inputs.run_tests }}
+      run_lint: ${{ inputs.run_lint }}
 
   package:
     name: Gerar JAR

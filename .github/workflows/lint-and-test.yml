@@ -6,6 +6,14 @@ on:
       java_version:
         required: true
         type: string
+      run_tests:
+        required: false
+        type: boolean
+        default: true
+      run_lint:
+          required: false
+          type: boolean
+          default: true
 
 jobs:
   lint:
