@@ -6,6 +6,7 @@ on:
   pull_request:
     paths:
       - "src/**"
+  workflow_dispatch:
 
 jobs:
   checkout:
@@ -73,3 +74,17 @@ jobs:
     steps:
       - name: Mensagem de deploy
         run: echo "Deploy realizado com sucesso"
+        
+  checkstyle:
+    name: Lint com Checkstyle (Action externa)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v4
+
+      - name: Rodar Checkstyle via Action externa
+        uses: dbelyaev/action-checkstyle@v1.7
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          checkstyle_config: google_checks.xml
+          fail_on_error: true

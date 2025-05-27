@@ -1,10 +1,16 @@
-# DevCalc
+# DevCalc – API REST com CI/CD
 
-**DevCalc** é uma API REST desenvolvida em **Java 21** com **Spring Boot**, que fornece operações matemáticas básicas como adição, subtração, multiplicação e divisão. Este projeto tem como objetivo servir de base para a implementação de pipelines automatizados de **CI/CD** com **GitHub Actions**, abordando etapas como verificação de código, testes automatizados, build, empacotamento e simulação de deploy.
+**DevCalc** é uma API REST escrita em **Java 22** com **Spring Boot**, que realiza operações matemáticas básicas: adição, subtração, multiplicação e divisão.
 
-## 🎯 Objetivo
+O projeto serve como base para estudos práticos de **CI/CD com GitHub Actions**, contemplando etapas como: build, testes, empacotamento (.jar) e simulação de deploy.
 
-O projeto foi desenvolvido como parte de um estudo prático sobre automação de processos de desenvolvimento com CI/CD, aplicando boas práticas de engenharia de software, testes e documentação de APIs REST.
+---
+
+## 📌 Objetivo
+
+Demonstrar na prática a automação do ciclo de desenvolvimento usando GitHub Actions, aplicando boas práticas de engenharia de software.
+
+---
 
 ## 🛠️ Tecnologias Utilizadas
 
@@ -41,7 +47,7 @@ devcalc/
 
 ### ✅ Pré-requisitos
 
-- Java 21 instalado
+- Java 22 instalado
 - Maven 3.8 ou superior
 
 ### ▶️ Passos
@@ -77,4 +83,39 @@ http://localhost:8080/swagger-ui.html
 - `GET /api/sub?a=10&b=4` → `6`
 - `GET /api/mul?a=2&b=7` → `14`
 - `GET /api/div?a=20&b=5` → `4`
+
+## 🚀 CI/CD com GitHub Actions
+
+![CI Status](https://github.com/franciscocamellon/devcalc-api/actions/workflows/hello.yml/badge.svg)
+![CI Status](https://github.com/franciscocamellon/devcalc-api/actions/workflows/ci.yml/badge.svg)
+
+### 🔁 Gatilhos configurados
+
+- `push` na branch `main`
+- `pull_request` com alterações no diretório `src/`
+- Execução manual via `workflow_dispatch`
+
+### ⚙️ Workflows implementados
+
+| Job        | Descrição                                      |
+|------------|-----------------------------------------------|
+| **checkout** | Faz o checkout do repositório                 |
+| **build**    | Compila o projeto com `mvn clean install`     |
+| **test**     | Executa os testes automatizados com JUnit     |
+| **package**  | Gera o arquivo `.jar` com `mvn package`       |
+| **deploy**   | Simula deploy com uma mensagem de sucesso     |
+
+---
+
+## ✅ Exemplos de uso
+
+### Execução automática por Pull Request
+
+Ao abrir um **pull request** com alterações em arquivos dentro da pasta `src/`, o pipeline é acionado automaticamente.
+
+### Execução manual pela interface
+
+1. Acesse a aba **Actions** no GitHub.
+2. Selecione o workflow `CI Pipeline`.
+3. Clique em **Run workflow**, selecione a branch e execute.
 
