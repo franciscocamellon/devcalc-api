@@ -1,4 +1,6 @@
 # DevCalc – API REST com CI/CD
+![CI Status](https://github.com/franciscocamellon/devcalc-api/actions/workflows/lint-and-test.yml/badge.svg)
+![CI Status](https://github.com/franciscocamellon/devcalc-api/actions/workflows/ci.yml/badge.svg)
 
 **DevCalc** é uma API REST escrita em **Java 22** com **Spring Boot**, que realiza operações matemáticas básicas: adição, subtração, multiplicação e divisão.
 
@@ -86,8 +88,7 @@ http://localhost:8080/swagger-ui.html
 
 ## 🚀 CI/CD com GitHub Actions
 
-![CI Status](https://github.com/franciscocamellon/devcalc-api/actions/workflows/hello.yml/badge.svg)
-![CI Status](https://github.com/franciscocamellon/devcalc-api/actions/workflows/ci.yml/badge.svg)
+
 
 ### 🔁 Gatilhos configurados
 
