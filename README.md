@@ -127,3 +127,9 @@ Durante os testes de integração contínua, foi inserido um erro proposital em 
 A falha foi identificada na aba **Actions** do GitHub, acessando o log do job que falhou. Através dos logs detalhados do step, foi possível localizar a mensagem de erro: `command not found`.
 
 Após a identificação, o erro foi corrigido substituindo o comando inválido por um comando correto. A nova execução do workflow confirmou a correção com status ✅.
+
+### 📈 Observações sobre execução automática vs manual
+
+Durante os testes, foram realizadas duas execuções do pipeline: uma automática via `push` na branch `main`, e outra manual através do botão "Run workflow". Na execução automática, o pipeline foi acionado imediatamente após o push, sem intervenção do usuário. Já na execução manual, foi possível escolher quais etapas deveriam ser executadas, por meio dos parâmetros `run_tests` e `run_lint`.
+
+Essa flexibilidade é útil para casos em que o desenvolvedor deseja validar apenas partes específicas da aplicação. Além disso, a aba Actions do GitHub permite diferenciar claramente os gatilhos usados e visualizar os logs detalhados de cada execução.
