@@ -119,3 +119,10 @@ Ao abrir um **pull request** com alterações em arquivos dentro da pasta `src/`
 2. Selecione o workflow `CI Pipeline`.
 3. Clique em **Run workflow**, selecione a branch e execute.
 
+### 🛠️ Diagnóstico de erro no pipeline
+
+Durante os testes de integração contínua, foi inserido um erro proposital em um dos steps do pipeline para simular uma falha (comando inexistente `comando_inexistente`).
+
+A falha foi identificada na aba **Actions** do GitHub, acessando o log do job que falhou. Através dos logs detalhados do step, foi possível localizar a mensagem de erro: `command not found`.
+
+Após a identificação, o erro foi corrigido substituindo o comando inválido por um comando correto. A nova execução do workflow confirmou a correção com status ✅.
