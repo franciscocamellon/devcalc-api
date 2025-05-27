@@ -33,27 +33,16 @@ jobs:
       - name: Build com Maven
         run: mvn clean install
 
-  test:
-    name: Executar testes
-    runs-on: ubuntu-latest
+  lint-test:
+    uses: ./.github/workflows/lint-and-test.yml
     needs: build
-    steps:
-      - name: Checkout do repositório
-        uses: actions/checkout@v4
-
-      - name: Setup Java
-        uses: actions/setup-java@v3
-        with:
-          distribution: "corretto"
-          java-version: "22"
-
-      - name: Executar testes
-        run: mvn test
+    with:
+      java_version: "22"
 
   package:
     name: Gerar JAR
     runs-on: ubuntu-latest
-    needs: test
+    needs: lint-test
     steps:
       - name: Checkout do repositório
         uses: actions/checkout@v4
@@ -70,21 +59,7 @@ jobs:
   deploy:
     name: Deploy simbólico
     runs-on: ubuntu-latest
-    needs: [build, test]
+    needs: package
     steps:
       - name: Mensagem de deploy
         run: echo "Deploy realizado com sucesso"
-        
-  checkstyle:
-    name: Lint com Checkstyle (Action externa)
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout do repositório
-        uses: actions/checkout@v4
-
-      - name: Rodar Checkstyle via Action externa
-        uses: dbelyaev/action-checkstyle@v1.7.0
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          checkstyle_config: google_checks.xml
-          fail_on_error: true

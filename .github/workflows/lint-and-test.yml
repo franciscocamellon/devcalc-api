@@ -1,0 +1,40 @@
+name: Lint e Testes Reutilizáveis
+
+on:
+  workflow_call:
+    inputs:
+      java_version:
+        required: true
+        type: string
+
+jobs:
+  lint:
+    name: Verificar estilo com Checkstyle
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v4
+
+      - name: Rodar Checkstyle via Action externa
+        uses: dbelyaev/action-checkstyle@v1.7.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          checkstyle_config: google_checks.xml
+          fail_on_error: true
+
+  test:
+    name: Executar testes
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: "corretto"
+          java-version: ${{ inputs.java_version }}
+
+      - name: Executar testes
+        run: mvn test
