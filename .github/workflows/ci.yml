@@ -76,3 +76,5 @@ jobs:
     steps:
       - name: Mensagem de deploy
         run: echo "Deploy realizado com sucesso"
+      - name: Teste proposital com erro
+        run: comando_inexistente
