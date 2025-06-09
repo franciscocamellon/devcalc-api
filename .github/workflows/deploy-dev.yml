@@ -1,0 +1,31 @@
+name: Deploy to Dev
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  deploy-dev:
+    name: Deploy para ambiente de desenvolvimento
+    runs-on: ubuntu-latest
+
+    environment:
+      name: development
+      url: ${{ vars.API_URL }}
+
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: "corretto"
+          java-version: "22"
+
+      - name: Compilar e testar com Maven
+        run: mvn clean verify
+
+      - name: Deploy simulado em desenvolvimento
+        run: echo "Deploy para Dev concluído com sucesso."
