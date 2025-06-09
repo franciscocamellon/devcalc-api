@@ -29,7 +29,7 @@ jobs:
           echo "PROJECT_SCOPE_VAR = $PROJECT_SCOPE_VAR"
           echo "JOB_CONTEXT_VAR = $JOB_CONTEXT_VAR"
           echo "STEP_CONTEXT_VAR = $STEP_CONTEXT_VAR"
-          echo "ENVIRONMENT = $ENVIRONMENT"
+          echo "ENVIRONMENT = $STAGE"
 
       - name: Diagnóstico de ambiente (Etapa 2 com sobrescrição)"
         env:
@@ -39,4 +39,4 @@ jobs:
           echo "PROJECT_SCOPE_VAR = $PROJECT_SCOPE_VAR"
           echo "JOB_CONTEXT_VAR = $JOB_CONTEXT_VAR"
           echo "STEP_CONTEXT_VAR (não definido aqui) = ${STEP_CONTEXT_VAR:-<não definido>}"
-          echo "ENVIRONMENT (sobrescrito) = $ENVIRONMENT"
+          echo "ENVIRONMENT (sobrescrito) = $STAGE"
