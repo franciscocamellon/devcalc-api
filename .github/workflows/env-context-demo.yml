@@ -13,7 +13,7 @@ jobs:
 
     env:
       JOB_CONTEXT_VAR: "from_job"
-      ENVIRONMENT: dev
+      STAGE: test
 
     steps:
       - name: Checkout do código
@@ -33,7 +33,7 @@ jobs:
 
       - name: Diagnóstico de ambiente (Etapa 2 com sobrescrição)"
         env:
-          ENVIRONMENT: prod
+          STAGE: prod
         run: |
           echo "=== Etapa 2 ==="
           echo "PROJECT_SCOPE_VAR = $PROJECT_SCOPE_VAR"
