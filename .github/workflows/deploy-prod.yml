@@ -1,0 +1,39 @@
+name: Deploy to Prod
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy-prod:
+    name: Deploy para Ambiente de Produção
+    runs-on: ubuntu-latest
+
+    environment:
+      name: production
+      url: ${{ vars.API_URL }}
+
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: "corretto"
+          java-version: "22"
+
+      - name: Compilar e testar módulo principal
+        env:
+          PROD_API_KEY: ${{ secrets.PROD_API_KEY }}
+        run: |
+          cd devcalc-api
+          if [ -z "$PROD_API_KEY" ]; then
+            echo "O token PROD_TOKEN está ausente impossível fazer build!"
+            exit 1
+          fi
+          mvn clean verify
+
+      - name: Deploy simulado em produção
+        run: echo "Deploy para produção concluído com sucesso."
