@@ -26,4 +26,4 @@ jobs:
     if: ${{ env.trigger_issue == 'true' }}
     uses: ./.github/workflows/create-issue.yml
     secrets:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      ISSUE_TOKEN: ${{ secrets.GITHUB_TOKEN }}
