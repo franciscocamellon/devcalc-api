@@ -3,7 +3,7 @@ name: Create Issue from Template
 on:
   workflow_call:
     secrets:
-      GITHUB_TOKEN:
+      ISSUE_TOKEN:
         required: true
 
 permissions:
@@ -24,4 +24,4 @@ jobs:
           title: "Falha detectada no Deploy"
           body-path: .github/ISSUE_TEMPLATES/deploy-failure.md
           labels: bug, deploy
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.ISSUE_TOKEN }}
