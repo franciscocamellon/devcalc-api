@@ -1,0 +1,42 @@
+name: Context Showcase
+
+on:
+  workflow_dispatch:
+
+env:
+  PROJECT_SCOPE_VAR: "from_workflow"
+
+jobs:
+  environment-introspection:
+    name: Mostrar Escopos e Variáveis de Ambiente
+    runs-on: ubuntu-latest
+
+    env:
+      JOB_CONTEXT_VAR: "from_job"
+      ENVIRONMENT: dev
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Diagnóstico de ambiente (Etapa 1)
+        env:
+          STEP_CONTEXT_VAR: "from_step_1"
+        run: |
+          echo "=== Etapa 1 ==="
+          echo "Usuário que disparou o workflow: ${{ github.actor }}"
+          echo "Sistema operacional do runner: ${{ runner.os }}"
+          echo "PROJECT_SCOPE_VAR = $PROJECT_SCOPE_VAR"
+          echo "JOB_CONTEXT_VAR = $JOB_CONTEXT_VAR"
+          echo "STEP_CONTEXT_VAR = $STEP_CONTEXT_VAR"
+          echo "ENVIRONMENT = $ENVIRONMENT"
+
+      - name: Diagnóstico de ambiente (Etapa 2 com sobrescrição)"
+        env:
+          ENVIRONMENT: prod
+        run: |
+          echo "=== Etapa 2 ==="
+          echo "PROJECT_SCOPE_VAR = $PROJECT_SCOPE_VAR"
+          echo "JOB_CONTEXT_VAR = $JOB_CONTEXT_VAR"
+          echo "STEP_CONTEXT_VAR (não definido aqui) = ${STEP_CONTEXT_VAR:-<não definido>}"
+          echo "ENVIRONMENT (sobrescrito) = $ENVIRONMENT"
