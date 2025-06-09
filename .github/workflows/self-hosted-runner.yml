@@ -2,10 +2,10 @@ name: Self-Hosted runner
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - dev
-      - main
+  #push:
+  #  branches:
+   #   - dev
+    #  - main
 
 jobs:
   self-hosted-runner-test:
