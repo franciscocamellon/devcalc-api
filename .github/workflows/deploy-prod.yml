@@ -28,7 +28,6 @@ jobs:
         env:
           PROD_API_KEY: ${{ secrets.PROD_API_KEY }}
         run: |
-          cd devcalc-api
           if [ -z "$PROD_API_KEY" ]; then
             echo "O token PROD_TOKEN está ausente impossível fazer build!"
             exit 1
