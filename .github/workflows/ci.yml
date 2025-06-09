@@ -49,8 +49,8 @@ jobs:
     needs: build
     with:
       java_version: "22"
-      run_tests: ${{ inputs.run_tests }}
-      run_lint: ${{ inputs.run_lint }}
+      run_tests: ${{ fromJson(inputs.run_tests) }}
+      run_lint: ${{ fromJson(inputs.run_lint) }}
 
   package:
     name: Gerar JAR
