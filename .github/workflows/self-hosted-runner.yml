@@ -1,0 +1,43 @@
+name: Self-Hosted runner
+
+on:
+  push:
+    - dev
+    - main
+  workflow_dispatch:
+
+jobs:
+  self-hosted-runner-test:
+    name: Testando o Runner hospedado localmente
+    runs-on: windows-self-hosted-runner
+
+    steps:
+      - name: Exibir informações do sistema
+        run: |
+          echo "=== Informações do Runner (Windows) ==="
+          systeminfo
+        shell: powershell
+
+      - name: Verificar versão do Java
+        run: java -version
+        shell: powershell
+
+      - name: Instalar curl com Chocolatey
+        run: |
+          if (!(Get-Command choco -ErrorAction SilentlyContinue)) {
+            Write-Error "Chocolatey não está instalado. Instale manualmente antes de continuar."
+            exit 1
+          }
+          
+          choco install curl -y
+        shell: powershell
+
+      - name: Verificar se o curl está instalado
+        run: |
+          if (Get-Command curl -ErrorAction SilentlyContinue) {
+            echo "curl instalado com sucesso."
+          } else {
+            Write-Error "curl não está instalado."
+            exit 1
+          }
+        shell: powershell
