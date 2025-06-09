@@ -22,6 +22,6 @@ jobs:
         uses: peter-evans/create-issue-from-file@v5.0.1
         with:
           title: "Falha detectada no Deploy"
-          body-path: .github/issue_templates/deploy-failure.md
+          content-filepath: .github/issue_templates/deploy-failure.md
           labels: bug, deploy
           token: ${{ secrets.ISSUE_TOKEN }}
