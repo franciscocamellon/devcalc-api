@@ -1,0 +1,27 @@
+name: Create Issue from Template
+
+on:
+  workflow_call:
+    secrets:
+      GITHUB_TOKEN:
+        required: true
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  criar-issue:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v4
+
+      - name: Criar issue de falha no deploy
+        uses: peter-evans/create-issue-from-file@v5.0.1
+        with:
+          title: "Falha detectada no Deploy"
+          body-path: .github/ISSUE_TEMPLATES/deploy-failure.md
+          labels: bug, deploy
+          token: ${{ secrets.GITHUB_TOKEN }}
