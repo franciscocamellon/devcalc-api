@@ -6,24 +6,28 @@ on:
 jobs:
   check-deploy:
     runs-on: ubuntu-latest
-
-    env:
-      DEPLOY_STATUS: ""
+    outputs:
+      trigger_issue: ${{ steps.verificar.outputs.trigger_issue }}
 
     steps:
       - name: Verificar status de deploy
+        id: verify
         run: |
           echo "Status recebido: '$DEPLOY_STATUS'"
           if [ -z "$DEPLOY_STATUS" ] || [ "$DEPLOY_STATUS" != "success" ]; then
             echo "Deploy falhou, chamando fluxo de criação de issue."
-            echo "trigger_issue=true" >> "$GITHUB_ENV"
+            echo "trigger_issue=true" >> "$GITHUB_OUTPUT"
           else
             echo "Deploy realizado com sucesso."
-            echo "trigger_issue=false" >> "$GITHUB_ENV"
+            echo "trigger_issue=false" >> "$GITHUB_OUTPUT"
+          fi
+
+        env:
+          DEPLOY_STATUS: ""
 
   call-create-issue:
     needs: check-deploy
-    if: ${{ env.trigger_issue == 'true' }}
+    if: needs.check-deploy.outputs.trigger_issue == 'true'
     uses: ./.github/workflows/create-issue.yml
     secrets:
       ISSUE_TOKEN: ${{ secrets.GITHUB_TOKEN }}
