@@ -1,0 +1,38 @@
+name: Token Permissions & Issue Creation
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check-deploy:
+    name: Verificar status do deploy
+    runs-on: ubuntu-latest
+
+    env:
+      DEPLOY_STATUS: ""
+
+    steps:
+      - name: Verificar variável de deploy
+        id: verificar
+        run: |
+          if [ -z "$DEPLOY_STATUS" ] || [ "$DEPLOY_STATUS" != "success" ]; then
+            echo "Deploy falhou ou variável DEPLOY_STATUS ausente."
+            echo "criar_issue=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Deploy bem-sucedido."
+            echo "criar_issue=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Criar issue automaticamente em caso de falha
+        if: steps.verificar.outputs.criar_issue == 'true'
+        uses: peter-evans/create-issue@v5
+        with:
+          title: "Problema detectado no deploy"
+          body: |
+            O workflow detectou que a variável `DEPLOY_STATUS` está ausente ou diferente de "success".
+            Favor verificar as configurações de deploy ou pipeline de entrega contínua.
+          labels: bug, deploy
