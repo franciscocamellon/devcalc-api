@@ -10,7 +10,7 @@ on:
 jobs:
   self-hosted-runner-test:
     name: Testando o Runner hospedado localmente
-    runs-on: windows-self-hosted-runner
+    runs-on: self-hosted
 
     steps:
       - name: Exibir informações do sistema
