@@ -43,4 +43,16 @@ class CalculatorServiceTest {
         double result = calculator.division(10.0, 0.0);
         assertTrue(Double.isInfinite(result));
     }
+
+    @Test
+    public void testSqrt() {
+        double result = calculator.sqrt(16);
+        assertEquals(4.0, result, 0.0001);
+    }
+
+    @Test
+    public void testNegativeSqrt() {
+        double result = calculator.sqrt(-1);
+        assertTrue(Double.isNaN(result));
+    }
 }

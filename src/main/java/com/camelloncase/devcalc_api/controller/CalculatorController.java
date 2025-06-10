@@ -38,4 +38,11 @@ public class CalculatorController {
         }
         return calculatorService.division(a, b);
     }
+    @GetMapping("/sqrt")
+    public double sqrt(@RequestParam double a) {
+        if (a < 0) {
+            throw new IllegalArgumentException("Não é possível calcular raiz quadrada de número negativo.");
+        }
+        return calculatorService.sqrt(a);
+    }
 }
