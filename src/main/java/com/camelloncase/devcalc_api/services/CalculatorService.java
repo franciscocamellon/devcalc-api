@@ -22,4 +22,8 @@ public class CalculatorService {
     public double multiplication(double a, double b) {
         return a * b;
     }
+
+    public double sqrt(double a) {
+        return Math.sqrt(a);
+    }
 }
