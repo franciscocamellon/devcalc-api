@@ -133,3 +133,49 @@ Após a identificação, o erro foi corrigido substituindo o comando inválido p
 Durante os testes, foram realizadas duas execuções do pipeline: uma automática via `push` na branch `main`, e outra manual através do botão "Run workflow". Na execução automática, o pipeline foi acionado imediatamente após o push, sem intervenção do usuário. Já na execução manual, foi possível escolher quais etapas deveriam ser executadas, por meio dos parâmetros `run_tests` e `run_lint`.
 
 Essa flexibilidade é útil para casos em que o desenvolvedor deseja validar apenas partes específicas da aplicação. Além disso, a aba Actions do GitHub permite diferenciar claramente os gatilhos usados e visualizar os logs detalhados de cada execução.
+
+---
+
+## 📚 TP3 – Entrega Final DevCalc CI/CD
+
+Este projeto passou por uma evolução completa com foco em práticas modernas de integração e entrega contínua. Abaixo está um resumo das seis etapas da entrega TP3:
+
+### ✅ Etapa 1 – Runner Auto-Hospedado
+
+Foi configurado um runner local (Windows) e associado ao repositório da DevCalc. Um workflow simples (`self-hosted-runner.yml`) foi criado com o uso de `runs-on: self-hosted`, demonstrando execução local com comandos como `systeminfo`, `java -version` e instalação de utilitários com `choco`.
+
+### ✅ Etapa 2 – Uso de Variáveis e Segredos
+
+Foram criadas variáveis (`APP_MODE`, `SUPPORT_EMAIL`) e o segredo `PROD_TOKEN` nas configurações do repositório. O workflow `using-vars-secrets.yml` mostra como acessá-los usando os contextos `${{ vars.NOME }}` e `${{ secrets.NOME }}` com injeção via `env:`.
+
+### ✅ Etapa 3 – Escopos de Variáveis de Ambiente
+
+O workflow `env-context-demo.yml` demonstra a definição e sobreposição de variáveis nos níveis de workflow, job e step, além da leitura dos contextos `github.actor` e `runner.os`, permitindo compreender claramente o comportamento hierárquico de variáveis no GitHub Actions.
+
+### ✅ Etapa 4 – Permissões e Uso do GITHUB_TOKEN
+
+O workflow `deploy-check.yml` verifica o status do deploy e, caso falhe, chama o reusable workflow `create-issue.yml` que cria uma issue automaticamente no repositório. O uso explícito do `GITHUB_TOKEN` com permissão `issues: write` foi configurado e documentado.
+
+### ✅ Etapa 5 – Ambientes Dev e Prod com Environments
+
+Dois ambientes distintos foram configurados no GitHub:
+- **development**: liberação automática e variável `API_URL`.
+- **production**: exige aprovação manual e contém o segredo `PROD_API_KEY`.
+
+Os workflows `deploy-dev.yml` e `deploy-prod.yml` executam deploys simulados com base nas branches `dev` e `main`, respectivamente, utilizando a estrutura de environments do GitHub.
+
+### ✅ Etapa 6 – Nova Funcionalidade na API
+
+Foi implementado o endpoint `GET /sqrt?x=16` que retorna a raiz quadrada do número informado. A funcionalidade foi integrada na classe de serviço, coberta com novos testes automatizados e verificada no pipeline de integração contínua.
+
+---
+
+### ▶️ Executando os novos workflows
+
+1. **Runner auto-hospedado**: edite e execute `self-hosted-runner.yml` com `runs-on: self-hosted`.
+2. **Variáveis/Segredos**: rode manualmente `using-vars-secrets.yml` via **Actions > Run workflow**.
+3. **Contexto de variáveis**: acione manualmente `env-context-demo.yml` para observar os escopos.
+4. **Criação de issue automática**: execute `deploy-check.yml` com falha simulada no deploy.
+5. **Deploy para Dev**: faça um push na branch `dev`.
+6. **Deploy para Prod**: faça um push na branch `main` e aprove o ambiente no GitHub UI.
+
